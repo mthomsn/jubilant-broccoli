@@ -1,0 +1,23 @@
+{
+  "name": "jubilant-broccoli",
+  "version": "1.0.0",
+  "description": "small football application to track players",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mthomsn/jubilant-broccoli.git"
+  },
+  "author": "matt thomsen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mthomsn/jubilant-broccoli/issues"
+  },
+  "homepage": "https://github.com/mthomsn/jubilant-broccoli#readme",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
