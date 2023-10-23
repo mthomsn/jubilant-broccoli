@@ -3,21 +3,30 @@ import json
 import ezgmail
 import requests
 from dotenv import load_dotenv
+from crontab import CronTab
+#cron = CronTab(tabfile='/etc/crontab', user=False)  # system users cron
+#cron  = CronTab(user=True)  # current users cron
+#cron  = CronTab(user='username')  # other users cron
+#for job in cron:
+#    print(job)
 
 # loading env variables
 load_dotenv()
 RAPID_API_KEY=os.getenv('RAPID_API_KEY')
 RAPID_API_HOST=os.getenv('RAPID_API_HOST')
+PHONE_NUM=os.getenv('PHONE_NUM')
 
-# loading relevent ids for api calls
+# loading relevent ids for api calls;
 with open('ids.json') as json_file:
     ids = json.load(json_file)
-    print(ids['laliga_2023_id'])
+
+with open('test-data.json') as json_file:
+    test_data = json.load(json_file)
+    teams = test_data['response']
 
 # assuming carrier will be verizon for simplicity
-def send_txt(number):
-    print(f'{number}@vtext.com')
-    ezgmail.send(f'{number}@vtext.com', '', 'this is a test of python script using cron')
+def send_txt(number, message):
+    ezgmail.send(f'{number}@vtext.com', '', f'{message}')
 
 def get_league_fixtures(league_id, season, from_date, to_date):
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
@@ -28,11 +37,11 @@ def get_league_fixtures(league_id, season, from_date, to_date):
 
 # returns fixture on given time, future or past fixtures indicated by future param
 def get_fixture(team_id, season, qty, future):
-    if future == 'next':
+    if future == True:
         querystring = {"team":f"{team_id}", "season":f"{season}", "next":f"{qty}"}
-    elif future == 'last':
+    elif future == False:
         querystring = {"team":f"{team_id}", "season":f"{season}", "last":f"{qty}"}
-    elif future != 'next' and future != 'last':
+    else:
         print("invalid future/past indicator")
         exit()
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
@@ -40,6 +49,36 @@ def get_fixture(team_id, season, qty, future):
     response = requests.get(url, headers=headers, params=querystring)
     return response.json()
 
-#fixtures = get_league_fixtures(ids['laliga_2023_id'], "2023", "2023-10-21", "2023-10-23")
-fixtures = get_fixture(ids['barca_team_id'], 2023, 1, 'last')
-print(json.dumps(fixtures, indent=4))
+def determine_winner(data):
+    game_data = data['response']
+    team_data = game_data[0]
+    home_team_data = team_data['teams']['home']
+    away_team_data = team_data['teams']['away']
+    #print(type(home_team_data['winner']))
+    #print(f"home team: {home_team_data['winner']}")
+    #print(f"away team: {away_team_data['winner']}")
+    if home_team_data['winner'] == True:
+        res = f"{home_team_data['name']} won!"
+        return res
+    elif away_team_data['winner'] == True:
+        res = f"{away_team_data['name']} won!"
+        return res
+    else:
+        res = f"{home_team_data['name']} and {away_team_data['name']} tied."
+        return res
+
+
+# get results and send message
+def get_results():
+    game = get_fixture(ids['barca_team_id'], 2023, 1, False)
+    game_result = determine_winner(game)
+    send_txt(PHONE_NUM, game_result)
+
+# main function
+#def main():
+    # query server to get next game
+    # set timer to get results of next game
+    # query server to get previous results
+ 
+
+get_results()
