@@ -1,11 +1,7 @@
 # jubilant-broccoli
-Small application to track and send football reports for a small group of friends
+This is a small python script to check the results of soccer team and send notify myself via text.
 
-## the plan(user story)
-I want a report weekly of my favorite team/player.
-My friends and i argue over the best teams/players so i want a weekly report to get sent out to show when my friends favorite team loses.
-
-## technologies
+## technologies/tools
 python
 [ezgmail](https://github.com/asweigart/ezgmail)
 [requests](https://github.com/psf/requests)

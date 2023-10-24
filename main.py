@@ -1,9 +1,9 @@
 import os
 import json
-import ezgmail
-import requests
 import automation
 from dotenv import load_dotenv
+import ezgmail
+import requests
 
 # loading env variables
 load_dotenv()
