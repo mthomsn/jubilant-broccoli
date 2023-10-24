@@ -1,0 +1,85 @@
+{
+    "get": "fixtures",
+    "parameters": {
+        "team": "529",
+        "next": "1",
+        "season": "2023"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "fixture": {
+                "id": 1126185,
+                "referee": null,
+                "timezone": "UTC",
+                "date": "2023-10-25T16:45:00+00:00",
+                "timestamp": 1698252300,
+                "periods": {
+                    "first": null,
+                    "second": null
+                },
+                "venue": {
+                    "id": 19939,
+                    "name": "Estadi Ol\u00edmpic Llu\u00eds Companys",
+                    "city": "Barcelona"
+                },
+                "status": {
+                    "long": "Not Started",
+                    "short": "NS",
+                    "elapsed": null
+                }
+            },
+            "league": {
+                "id": 2,
+                "name": "UEFA Champions League",
+                "country": "World",
+                "logo": "https://media-4.api-sports.io/football/leagues/2.png",
+                "flag": null,
+                "season": 2023,
+                "round": "Group H - 3"
+            },
+            "teams": {
+                "home": {
+                    "id": 529,
+                    "name": "Barcelona",
+                    "logo": "https://media-4.api-sports.io/football/teams/529.png",
+                    "winner": null
+                },
+                "away": {
+                    "id": 550,
+                    "name": "Shakhtar Donetsk",
+                    "logo": "https://media-4.api-sports.io/football/teams/550.png",
+                    "winner": null
+                }
+            },
+            "goals": {
+                "home": null,
+                "away": null
+            },
+            "score": {
+                "halftime": {
+                    "home": null,
+                    "away": null
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
+            }
+        }
+    ]
+}
+
